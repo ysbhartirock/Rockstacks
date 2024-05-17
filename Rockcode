@@ -1,0 +1,50 @@
+class login:
+    def __init__(self,id,pas):
+        self.id="admin"
+        self.pas="admin"
+
+    def check(id,pas):
+        print self.id
+        print lod.id
+        if(self.id==log.id and self.pas==log.pas):
+            print "Login success!"
+
+
+log=login("","")
+log.check(raw_input("Enter Login ID:"),
+        input("Enter password: "))
+
+print "Login Page" 
+Error: Enter Login ID:admin Enter password: admin
+
+Traceback (most recent call last):
+  File "C:/Python27/login.py", line 15, in <module>
+    input("Enter password: "))
+  File "<string>", line 1, in <module>
+NameError: name 'admin' is not defined
+
+ou used input() instead of raw_input() for the password.
+
+input() is the equivalent of eval(raw_input()); if you typed in admin for the password it is interpreted as Python code. admin is then interpreted as a variable name, and because that name doesn't exist in your code, a NameError is raised.
+
+Use:
+
+log.check(raw_input("Enter Login ID:"),
+          raw_input("Enter password: "))
+instead.
+
+Next up, your check() method won't work, as you forgot the self parameter and are trying to reference a name lod that doesn't exist. The following would work better:
+
+class login:
+    def __init__(self, id, pas):
+        self.id = id
+        self.pas = pas
+
+    def check(self, id, pas):
+        print self.id
+        if self.id == id and self.pas == pas:
+            print "Login success!"
+
+log = login("admin", "admin")
+log.check(raw_input("Enter Login ID:"),
+          raw_input("Enter password: "))
